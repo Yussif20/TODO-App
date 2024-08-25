@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -17,12 +17,20 @@
   </head>
   <body>
     <div class="app">
-      <div class="todo__app">
-        <div class="todo__app--header">
+      <div class="todo">
+        <div class="todo__header">
+          <h1>TODO</h1>
           <button class="themeToggler__btn"></button>
-          <h1>Todo</h1>
         </div>
-        <div class="todo__app--input"></div>
+        <input
+          class="todo__input"
+          type="text"
+          placeholder="Create a new todo..."
+        />
+        <ul class="todo__tasks">
+          <li class="todo__tasks--task">Task1</li>
+          <li class="todo__tasks--task">Task1</li>
+        </ul>
       </div>
     </div>
     <script src="./index.js" type="module" defer></script>
