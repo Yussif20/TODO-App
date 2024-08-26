@@ -1,6 +1,7 @@
-import { themeToggler } from "./elements";
-import { themeTogglerHandler } from "./utils";
+import { formButton, themeToggler,textInput } from "./elements";
+import { renderTasks, themeTogglerHandler } from "./utils";
 
 export const initListeners = ()=>{
-    themeToggler.addEventListener("click",themeTogglerHandler)
+    themeToggler.addEventListener("click",themeTogglerHandler);
+    formButton.addEventListener("click",renderTasks(textInput.value))
 }
