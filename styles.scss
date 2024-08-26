@@ -42,6 +42,10 @@ body {
 *::before {
   box-sizing: border-box;
 }
+button {
+  font-weight: inherit;
+  color: inherit;
+}
 ul {
   list-style: none;
 }
@@ -84,7 +88,6 @@ button {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
   border-radius: 0.5rem;
   width: 60%;
   z-index: 2;
@@ -115,6 +118,7 @@ button {
     }
   }
   &__form {
+    margin-bottom: 2rem;
     background-color: var(--color-bg-secondary);
     display: flex;
     align-items: center;
@@ -157,16 +161,52 @@ button {
     padding-left: 0;
     margin: 0;
     &--task {
-      padding: 0.8rem;
+      text-transform: capitalize;
+      padding: 0.8rem 2.2rem;
       width: 100%;
       background-color: var(--color-bg-secondary);
       color: var(--color-font-primary);
-      &:not(:last-of-type) {
-        border-bottom: 0.5px solid var(--color-font-secondary);
-      }
+      border-bottom: 0.5px solid var(--color-font-secondary);
       &:hover {
         background-color: var(--color-bg-todo-hover);
       }
+    }
+    &--empty {
+      color: var(--bright-blue);
+      background-color: var(--color-bg-secondary);
+      padding: 2.4rem;
+      margin: auto;
+      text-transform: uppercase;
+      font-size: 3rem;
+      border-radius: 1rem;
+      font-weight: bold;
+    }
+  }
+}
+.todo__footer {
+  padding: 0.8rem 2.2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-font-primary);
+  button {
+    transition: color 0.3s ease;
+    font-weight: bold;
+    &:hover {
+      color: var(--bright-blue);
+    }
+  }
+  &--buttons {
+    display: flex;
+    align-items: center;
+    li {
+      transition: color 0.3s ease;
+    }
+    li .active,
+    li:hover {
+      color: var(--bright-blue);
     }
   }
 }
