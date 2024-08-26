@@ -1,46 +1,30 @@
 //Variables
 :root {
-  // Images
   --icon-theme: url("./assets/icon-moon.svg");
   --image-background-desktop: url("./assets/bg-desktop-light.jpg");
   --image-background-mobile: url("./assets/bg-mobile-light.jpg");
-  // Colors
   --bright-blue: hsl(220, 98%, 61%);
   --check-background: linear-gradient(
     45deg,
     hsl(192, 100%, 67%),
     hsl(280, 87%, 65%)
   );
-  --color-bg-primary: hsl(0, 0%, 98%); /* Background for the entire page */
-  --color-bg-secondary: hsl(236, 33%, 92%); /* Background for todo container */
-  --color-bg-todo-hover: hsl(233, 11%, 84%); /* Background for hover states */
-  --color-font-primary: hsl(235, 19%, 35%); /* Primary font color */
-  --color-font-secondary: hsl(
-    236,
-    9%,
-    61%
-  ); /* Secondary font color for less emphasis */
+  --color-bg-primary: hsl(0, 0%, 98%);
+  --color-bg-secondary: hsl(236, 33%, 92%);
+  --color-bg-todo-hover: hsl(233, 11%, 84%);
+  --color-font-primary: hsl(235, 19%, 35%);
+  --color-font-secondary: hsl(236, 9%, 61%);
 }
-/* //   ### Dark Theme */
 .app--isDark {
-  //Images
   --icon-theme: url("./assets/icon-sun.svg");
   --image-background-desktop: url("./assets/bg-desktop-dark.jpg");
   --image-background-mobile: url("./assets/bg-mobile-dark.jpg");
-  --color-bg-primary: hsl(235, 21%, 11%); /* Background for the entire page */
-  --color-bg-secondary: hsl(235, 24%, 19%); /* Background for todo container */
-  --color-bg-hover: hsl(234, 39%, 85%); /* Background for hover states */
-  --color-font-primary: hsl(234, 11%, 52%); /* Primary font color */
-  --color-font-secondary: hsl(
-    233,
-    14%,
-    35%
-  ); /* Secondary font color for less emphasis */
-  --color-bg-todo-hover: hsl(
-    237,
-    14%,
-    26%
-  ); /* Background for todo item hover */
+  --color-bg-primary: hsl(235, 21%, 11%);
+  --color-bg-secondary: hsl(235, 24%, 19%);
+  --color-font-primary: hsl(234, 39%, 85%);
+  --color-font-primary-no: hsl(234, 11%, 52%);
+  --color-font-secondary: hsl(233, 14%, 35%);
+  --color-bg-todo-hover: hsl(237, 14%, 26%);
 }
 
 // CSS Reset
@@ -73,12 +57,12 @@ button {
 
 // App Styles
 .app {
+  background-color: var(--color-bg-primary);
   position: relative;
   height: 100vh;
   width: 100%;
-  background-color: var(--color-bg-primary);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   transition: all 0.3s ease;
   &::before {
