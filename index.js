@@ -5,3 +5,5 @@ initListeners();
 initDataOnStartup();
 //Add theme toggle ✅
 //Render added tasks
+
+// localStorage.clear()
