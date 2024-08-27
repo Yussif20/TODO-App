@@ -4,5 +4,7 @@ export const textInput = document.querySelector (".todo__form--input");
 export const tasksContainer = document.querySelector(".todo__tasks");
 export const formButton = document.querySelector(".todo__form--btn")
 export const clearButton = document.querySelector(".clear-btn");
+export const checkButtons = ()=> document.querySelectorAll(".task-btn");
+export const deleteButtons = ()=> document.querySelectorAll(".task-close");
 export const footerButtons = ()=> document.querySelectorAll(".footer-btn");
-export const taskCount = ()=>document.querySelector(".todo__footer--count")
+export const taskCount = ()=>document.querySelector(".todo__footer--count");

@@ -28,13 +28,18 @@ const renderTasks = (tasks)=>{
     let taskList = ``;
     let counter = 1;
     tasks.forEach((task)=>{
-            let taskEl =`<li id="item${counter}" class="todo__tasks--task"><p>${task.value}</p></li>` ;
+            let taskEl =`
+            <li id="item${counter}" class="todo__tasks--task ${task.isCompleted ? "checked": ""}">
+                <button class="task-btn "></button>
+                <p>${task.value}</p>
+                <button class="task-close"><img src="assets/icon-cross.svg" /></button>
+            </li>` ;
             taskList += taskEl;
             counter ++;
     })
     let taskFooter = `
        <div class="todo__footer">
-          <p><span class="todo__footer--count"></span>items left</p>
+          <p><span class="todo__footer--count">${counter - 1}</span>items left</p>
           <ul class="todo__footer--buttons">
             <li><button class="active footer-btn">All</button></li>
             <li><button class="footer-btn">Active</button></li>
@@ -44,7 +49,6 @@ const renderTasks = (tasks)=>{
         </div>
     `
     tasksContainer.innerHTML =taskList + taskFooter;
-    taskCount().innerText = counter - 1;
     textInput.value = '';
 }
 export const addTask = (e)=>{
@@ -58,7 +62,19 @@ export const addTask = (e)=>{
     const tasks = fetchData("tasks") || [];
     tasks.push(task);
     saveToDB("tasks",tasks);
-    renderTasks(tasks)
+    initTasks(tasks)
+}
+export const checkTask = (e,index)=>{
+    e.currentTarget.parentElement.classList.toggle("checked");
+    const tasks = fetchData("tasks");
+    tasks[index].isCompleted = !tasks[index].isCompleted;
+    saveToDB("tasks",tasks)
+}
+export const deleteTask = (e,index)=>{
+    const tasks =fetchData("tasks");
+    tasks.splice(index,1);
+    initTasks(tasks)
+    saveToDB("tasks",tasks)
 }
 
 export const initDataOnStartup =()=>{
