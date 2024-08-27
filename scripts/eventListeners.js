@@ -1,4 +1,4 @@
-import { formButton, themeToggler, footerButtons, textInput } from "./elements";
+import { formButton, themeToggler, footerButtons, textInput, taskCount } from "./elements";
 import { addTask, themeTogglerHandler } from "./utils";
 
 export const initListeners = ()=>{
@@ -13,6 +13,7 @@ export const initListeners = ()=>{
 export const initTaskListeners = ()=>{
     footerButtons().forEach((btn)=>{
         btn.addEventListener("click",()=>{
+            footerButtons().forEach(button=>button.classList.remove("active"))
             btn.classList.add("active")
         })
     })

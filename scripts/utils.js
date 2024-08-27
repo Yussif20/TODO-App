@@ -1,4 +1,4 @@
-import { App, tasksContainer, textInput } from "./elements";
+import { App, taskCount, tasksContainer, textInput } from "./elements";
 import { initTaskListeners } from "./eventListeners";
 
 const fetchData = (key) =>{
@@ -24,7 +24,7 @@ const initTasks =(tasks)=>{
 const renderEmptyList = ()=>{
     tasksContainer.innerHTML = ` <p class="todo__tasks--empty">Please enter your tasks</p>`
 }
-export const renderTasks = (tasks)=>{
+const renderTasks = (tasks)=>{
     let taskList = ``;
     let counter = 1;
     tasks.forEach((task)=>{
@@ -44,6 +44,7 @@ export const renderTasks = (tasks)=>{
         </div>
     `
     tasksContainer.innerHTML =taskList + taskFooter;
+    taskCount().innerText = counter - 1;
     textInput.value = '';
 }
 export const addTask = (e)=>{
