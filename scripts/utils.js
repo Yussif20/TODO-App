@@ -30,7 +30,7 @@ const renderTasks = (tasks)=>{
     tasks.forEach((task)=>{
             let taskEl =`
             <li id="item${counter}" class="todo__tasks--task ${task.isCompleted ? "checked": ""}">
-                <button class="task-btn "></button>
+                <button class="task-btn "><img src="./assets/icon-check.svg" /></button>
                 <p>${task.value}</p>
                 <button class="task-close"><img src="assets/icon-cross.svg" /></button>
             </li>` ;
