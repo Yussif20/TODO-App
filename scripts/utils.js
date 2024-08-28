@@ -1,4 +1,4 @@
-import { App, taskCount, tasksContainer, textInput } from "./elements";
+import { activeItemsBtn, allItemsBtn, App, completedItemsBtn, taskCount, tasksContainer, textInput, todoFooter } from "./elements";
 import { initTaskListeners } from "./eventListeners";
 
 const fetchData = (key) =>{
@@ -13,11 +13,34 @@ export const themeTogglerHandler = ()=>{
     App.classList.toggle("app--isDark");
     saveToDB("darkThemeFlag" , App.classList.contains("app--isDark"))
 }
+export const renderActiveTasks = ()=>{
+    const tasks = fetchData("tasks")
+    initTasks(tasks.filter((item)=>item.isCompleted === false));
+}
+export const renderAllTasks = ()=>{
+    const tasks = fetchData("tasks")
+    initTasks(tasks);
+}
+export const renderCompletedTasks = ()=>{
+    const tasks = fetchData("tasks")
+    initTasks(tasks.filter((item)=>item.isCompleted === true));
+}
 const initTasks =(tasks)=>{
     if(tasks.length){
-        renderTasks(tasks);
+        todoFooter.classList.add("active");
+        // renderTasks(tasks);
+        if(allItemsBtn.classList.contains("active")){
+            renderAllTasks();
+        }
+        else if(activeItemsBtn.classList.contains("active")){
+            renderActiveTasks();
+        }
+        else if(completedItemsBtn.classList.contains("active")){
+            renderCompletedTasks();
+        }
         initTaskListeners();
     }else{
+        todoFooter.classList.remove("active");
         renderEmptyList();
     }
 }
@@ -37,18 +60,7 @@ const renderTasks = (tasks)=>{
             taskList += taskEl;
             counter ++;
     })
-    let taskFooter = `
-       <div class="todo__footer">
-          <p><span class="todo__footer--count">${counter - 1}</span>items left</p>
-          <ul class="todo__footer--buttons">
-            <li><button class="active footer-btn">All</button></li>
-            <li><button class="footer-btn">Active</button></li>
-            <li><button class="footer-btn">Completed</button></li>
-          </ul>
-          <button class="clear-btn">Clear Completed</button>
-        </div>
-    `
-    tasksContainer.innerHTML =taskList + taskFooter;
+    tasksContainer.innerHTML = taskList ;
     textInput.value = '';
 }
 export const addTask = (e)=>{

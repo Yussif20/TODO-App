@@ -220,9 +220,9 @@ button {
   }
 }
 .todo__footer {
+  display: none;
   padding: 0.8rem 2.2rem;
   width: 100%;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--color-bg-secondary);
@@ -250,4 +250,7 @@ button {
       color: var(--bright-blue);
     }
   }
+}
+.todo__footer.active {
+  display: flex;
 }
