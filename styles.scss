@@ -234,7 +234,7 @@ button {
   }
   button {
     transition: color 0.3s ease;
-    font-weight: bold;
+    font-weight: 600;
     &:hover {
       color: var(--bright-blue);
     }
@@ -253,4 +253,8 @@ button {
 }
 .todo__footer.active {
   display: flex;
+}
+.todo__subtext {
+  margin: 4rem auto;
+  color: var(--color-bg-todo-hover);
 }

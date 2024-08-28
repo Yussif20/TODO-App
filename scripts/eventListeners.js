@@ -1,38 +1,40 @@
-import { formButton, themeToggler, checkButtons, deleteButtons, activeItemsBtn, allItemsBtn, completedItemsBtn, clearButton } from "./elements";
-import { addTask, checkTask, deleteAllTasks, deleteTask,themeTogglerHandler } from "./utils";
-export const initListeners = ()=>{
-    themeToggler.addEventListener("click",themeTogglerHandler);
-    formButton.addEventListener("click",addTask);
-    window.addEventListener("keypress",(e)=>{
-        if(e.key === "Enter"){
+import { formButton, themeToggler, checkButtons, deleteButtons, activeItemsBtn, allItemsBtn, completedItemsBtn, clearButton, footerButtons } from "./elements";
+import { addTask, checkTask, deleteAllTasks, deleteTask, fetchData, initDataOnStartup, renderChosenTasks, themeTogglerHandler } from "./utils";
+
+export const initListeners = () => {
+    themeToggler.addEventListener("click", themeTogglerHandler);
+    formButton.addEventListener("click", addTask);
+    window.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
             formButton.click();
         }
-    })
+    });
 }
-export const initTaskListeners = ()=>{
-    allItemsBtn.addEventListener("click",()=>{
-        completedItemsBtn.classList.remove("active");
-        activeItemsBtn.classList.remove("active");
-        allItemsBtn.classList.add("active");
-        // renderAllTasks();
-    })
-    activeItemsBtn.addEventListener("click",()=>{
-        completedItemsBtn.classList.remove("active");
-        allItemsBtn.classList.remove("active");
-        activeItemsBtn.classList.add("active");
-        // renderActiveTasks();
-    })
-    completedItemsBtn.addEventListener("click",()=>{
-        allItemsBtn.classList.remove("active");
-        activeItemsBtn.classList.remove("active");
-        completedItemsBtn.classList.add("active");
-        // renderCompletedTasks();
-    })
-    checkButtons().forEach((btn,index)=>{
-        btn.addEventListener("click",(e)=> checkTask(e,index))
-    })
-    deleteButtons().forEach((btn,index)=>{
-        btn.addEventListener("click",(e)=>deleteTask(e,index))
-    })
-    clearButton.addEventListener("click",deleteAllTasks)
+
+export const initTaskListeners = () => {
+    checkButtons().forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const taskId = parseInt(e.currentTarget.parentElement.id.replace('item', ''));
+            checkTask(e, taskId);
+        });
+    });
+
+    deleteButtons().forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const taskId = parseInt(e.currentTarget.parentElement.id.replace('item', ''));
+            deleteTask(e, taskId);
+        });
+    });
+
+    clearButton.addEventListener("click", deleteAllTasks);
 }
+
+footerButtons().forEach((btn) => {
+    btn.addEventListener("click", () => {
+        footerButtons().forEach((button) => button.classList.remove("active"));
+        btn.classList.add("active");
+        const tasks = fetchData("tasks");
+        renderChosenTasks(tasks);
+        initTaskListeners();  // Reinitialize listeners after rendering
+    });
+});

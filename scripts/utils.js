@@ -1,7 +1,7 @@
 import { activeItemsBtn, allItemsBtn, App, completedItemsBtn, tasksContainer, textInput, todoFooter,todoCount } from "./elements";
 import { initTaskListeners } from "./eventListeners";
 
-const fetchData = (key) =>{
+export const fetchData = (key) =>{
     const data = localStorage.getItem(key);
     return data? JSON.parse(data):false;
 }
@@ -25,22 +25,21 @@ export const renderChosenTasks =(tasks)=>{
 const renderEmptyList = ()=>{
     tasksContainer.innerHTML = ` <p class="todo__tasks--empty">Please enter your tasks</p>`
 }
-const renderTasks = (tasks)=>{
+const renderTasks = (tasks) => {
     let taskList = ``;
-    let counter = 1;
-    tasks.forEach((task)=>{
-            let taskEl =`
-            <li id="item${counter}" class="todo__tasks--task ${task.isCompleted ? "checked": ""}">
-                <button class="task-btn "><img src="./assets/icon-check.svg" /></button>
-                <p>${task.value}</p>
-                <button class="task-close"><img src="assets/icon-cross.svg" /></button>
-            </li>` ;
-            taskList += taskEl;
-            counter ++;
-    })
-    tasksContainer.innerHTML = taskList ;
+    tasks.forEach((task) => {
+        let taskEl = `
+        <li id="item${task.id}" class="todo__tasks--task ${task.isCompleted ? "checked" : ""}">
+            <button class="task-btn" onclick="checkTask(event, ${task.id})"><img src="./assets/icon-check.svg" /></button>
+            <p>${task.value}</p>
+            <button class="task-close" onclick="deleteTask(event, ${task.id})"><img src="assets/icon-cross.svg" /></button>
+        </li>`;
+        taskList += taskEl;
+    });
+    tasksContainer.innerHTML = taskList;
     textInput.value = '';
 }
+
 const initTasks =(tasks)=>{
     if(tasks.length){
         renderChosenTasks(tasks);
@@ -52,32 +51,41 @@ const initTasks =(tasks)=>{
     }
 }
 
-export const addTask = (e)=>{
+export const addTask = (e) => {
     e.preventDefault();
     let taskValue = textInput.value;
-    if(!taskValue || !taskValue.split(" ").join(""))return;
-    const task ={
-        value : taskValue,
-        isCompleted:false,
-    }
+    if (!taskValue || !taskValue.split(" ").join("")) return;
+    
+    const task = {
+        id: Date.now(),  
+        value: taskValue,
+        isCompleted: false,
+    };
+    
     const tasks = fetchData("tasks") || [];
     tasks.push(task);
-    saveToDB("tasks",tasks);
-    initTasks(tasks)
+    saveToDB("tasks", tasks);
+    initTasks(tasks);
 }
-export const checkTask = (e,index)=>{
+
+export const checkTask = (e, id) => {
     e.currentTarget.parentElement.classList.toggle("checked");
     const tasks = fetchData("tasks");
-    tasks[index].isCompleted = !tasks[index].isCompleted;
+    const taskIndex = tasks.findIndex(task => task.id === id);
+    if (taskIndex !== -1) {
+        tasks[taskIndex].isCompleted = !tasks[taskIndex].isCompleted;
+        initTasks(tasks);
+        saveToDB("tasks", tasks);
+    }
+}
+
+export const deleteTask = (e, id) => {
+    let tasks = fetchData("tasks");
+    tasks = tasks.filter(task => task.id !== id);
     initTasks(tasks);
-    saveToDB("tasks",tasks);
+    saveToDB("tasks", tasks);
 }
-export const deleteTask = (e,index)=>{
-    const tasks =fetchData("tasks");
-    tasks.splice(index,1);
-    initTasks(tasks)
-    saveToDB("tasks",tasks)
-}
+
 export const deleteAllTasks =()=>{
     const tasks = fetchData("tasks").filter((item)=> item.isCompleted === false);
     saveToDB("tasks",tasks);

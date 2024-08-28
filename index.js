@@ -13,5 +13,6 @@ initListeners();
 // TODO fix the background image repeat problem on mobile ✅
 // TODO render chosen items ✅
 // TODO clear all tasks button ✅
-// TODO update the ui when choosing category
+// TODO update the ui when choosing category ✅
+// TODO listen to tasks after change category ✅
 // TODO add drag and drop property
