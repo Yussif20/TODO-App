@@ -83,7 +83,7 @@ button {
     width: 100%;
     height: 35vh;
     @media (max-width: 767px) {
-      background: var(--image-background-mobile);
+      background-image: var(--image-background-mobile);
     }
   }
 }

@@ -10,6 +10,6 @@ initListeners();
 // TODO Add close marks next to each task ✅
 // TODO Add delete task listener to the cross mark ✅
 // TODO add check icons to the tasks ✅
+// TODO fix the background image repeat problem on mobile ✅
 // TODO render chosen items 
 // TODO add drag and drop property
-// TODO fix the background image repeat problem on mobile
