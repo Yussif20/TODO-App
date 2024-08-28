@@ -1,6 +1,5 @@
-import { formButton, themeToggler, footerButtons, checkButtons, deleteButtons, activeItemsBtn, allItemsBtn, completedItemsBtn } from "./elements";
-import { addTask, checkTask, deleteTask, renderActiveTasks, renderAllTasks, renderCompletedTasks, themeTogglerHandler } from "./utils";
-
+import { formButton, themeToggler, checkButtons, deleteButtons, activeItemsBtn, allItemsBtn, completedItemsBtn, clearButton } from "./elements";
+import { addTask, checkTask, deleteAllTasks, deleteTask,themeTogglerHandler } from "./utils";
 export const initListeners = ()=>{
     themeToggler.addEventListener("click",themeTogglerHandler);
     formButton.addEventListener("click",addTask);
@@ -15,19 +14,19 @@ export const initTaskListeners = ()=>{
         completedItemsBtn.classList.remove("active");
         activeItemsBtn.classList.remove("active");
         allItemsBtn.classList.add("active");
-        renderAllTasks();
+        // renderAllTasks();
     })
     activeItemsBtn.addEventListener("click",()=>{
         completedItemsBtn.classList.remove("active");
         allItemsBtn.classList.remove("active");
         activeItemsBtn.classList.add("active");
-        renderActiveTasks();
+        // renderActiveTasks();
     })
     completedItemsBtn.addEventListener("click",()=>{
         allItemsBtn.classList.remove("active");
         activeItemsBtn.classList.remove("active");
         completedItemsBtn.classList.add("active");
-        renderCompletedTasks();
+        // renderCompletedTasks();
     })
     checkButtons().forEach((btn,index)=>{
         btn.addEventListener("click",(e)=> checkTask(e,index))
@@ -35,4 +34,5 @@ export const initTaskListeners = ()=>{
     deleteButtons().forEach((btn,index)=>{
         btn.addEventListener("click",(e)=>deleteTask(e,index))
     })
+    clearButton.addEventListener("click",deleteAllTasks)
 }

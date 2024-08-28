@@ -11,5 +11,7 @@ initListeners();
 // TODO Add delete task listener to the cross mark ✅
 // TODO add check icons to the tasks ✅
 // TODO fix the background image repeat problem on mobile ✅
-// TODO render chosen items 
+// TODO render chosen items ✅
+// TODO clear all tasks button ✅
+// TODO update the ui when choosing category
 // TODO add drag and drop property
