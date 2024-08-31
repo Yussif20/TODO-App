@@ -8,6 +8,58 @@ export const fetchData = (key) =>{
 const saveToDB = (key,data)=>{
     localStorage.setItem(key,JSON.stringify(data))
 }
+let draggedItem = null;
+
+const onDragStart = (e) => {
+    draggedItem = e.target.closest('li');
+
+    const rect = draggedItem.getBoundingClientRect();
+    draggedItem.style.width = `${rect.width}px`;
+    draggedItem.style.height = `${rect.height}px`;
+    draggedItem.style.opacity = '0.5';
+
+    setTimeout(() => {
+        if (draggedItem) {
+            draggedItem.style.display = 'none';
+        }
+    }, 0);
+};
+
+const onDragOver = (e) => {
+    e.preventDefault();
+};
+const onDrop = (e) => {
+    e.preventDefault();
+    if (draggedItem !== e.target) {
+        const tasks = fetchData("tasks") || [];
+        const draggedItemId = parseInt(draggedItem.id.replace('item', ''));
+        const droppedOnItem = e.target.closest('li');
+        const droppedOnItemId = parseInt(droppedOnItem.id.replace('item', ''));
+
+        const draggedItemIndex = tasks.findIndex(task => task.id === draggedItemId);
+        const droppedOnItemIndex = tasks.findIndex(task => task.id === droppedOnItemId);
+
+        tasks.splice(droppedOnItemIndex, 0, tasks.splice(draggedItemIndex, 1)[0]);
+        saveToDB("tasks", tasks);
+        initTasks(tasks);
+    }
+    resetDraggedItem();
+};
+
+export const onDragEnd = (e) => {
+    resetDraggedItem();
+};
+
+const resetDraggedItem = () => {
+    if (draggedItem) {
+        draggedItem.style.display = 'flex';
+        draggedItem.style.width = '';  
+        draggedItem.style.height = ''; 
+        draggedItem.style.opacity = '';
+        draggedItem = null;
+    }
+};
+
 
 export const themeTogglerHandler = ()=>{
     App.classList.toggle("app--isDark");
@@ -29,7 +81,7 @@ const renderTasks = (tasks) => {
     let taskList = ``;
     tasks.forEach((task) => {
         let taskEl = `
-        <li id="item${task.id}" class="todo__tasks--task ${task.isCompleted ? "checked" : ""}">
+        <li id="item${task.id}" class="todo__tasks--task ${task.isCompleted ? "checked" : ""}" draggable="true">
             <button class="task-btn" onclick="checkTask(event, ${task.id})"><img src="./assets/icon-check.svg" /></button>
             <p>${task.value}</p>
             <button class="task-close" onclick="deleteTask(event, ${task.id})"><img src="assets/icon-cross.svg" /></button>
@@ -37,8 +89,19 @@ const renderTasks = (tasks) => {
         taskList += taskEl;
     });
     tasksContainer.innerHTML = taskList;
+
+    // Add drag and drop event listeners after rendering tasks
+    const taskElements = tasksContainer.querySelectorAll(".todo__tasks--task");
+    taskElements.forEach((task) => {
+        task.addEventListener("dragstart", onDragStart);
+        task.addEventListener("dragover", onDragOver);
+        task.addEventListener("drop", onDrop);
+        task.addEventListener("dragend", onDragEnd);
+    });
+
     textInput.value = '';
-}
+};
+
 
 const initTasks =(tasks)=>{
     if(tasks.length){
