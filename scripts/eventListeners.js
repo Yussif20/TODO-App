@@ -1,5 +1,5 @@
-import { formButton, themeToggler, checkButtons, deleteButtons, activeItemsBtn, allItemsBtn, completedItemsBtn, clearButton, footerButtons } from "./elements";
-import { addTask, checkTask, deleteAllTasks, deleteTask, fetchData, initDataOnStartup, renderChosenTasks, themeTogglerHandler } from "./utils";
+import { formButton, themeToggler, checkButtons, deleteButtons, clearButton, footerButtons } from "./elements";
+import { addTask, checkTask, deleteAllTasks, deleteTask, fetchData, renderChosenTasks, themeTogglerHandler } from "./utils";
 
 export const initListeners = () => {
     themeToggler.addEventListener("click", themeTogglerHandler);
@@ -35,6 +35,6 @@ footerButtons().forEach((btn) => {
         btn.classList.add("active");
         const tasks = fetchData("tasks");
         renderChosenTasks(tasks);
-        initTaskListeners();  // Reinitialize listeners after rendering
+        initTaskListeners();
     });
 });
