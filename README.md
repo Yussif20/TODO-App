@@ -65,7 +65,7 @@ To run the Todo App locally, follow these steps:
 ### Links
 
 - Repo URL: [github link](https://github.com/Yussif20/TODO-App)
-- Live Site URL: [live site url](https://yussif20.github.io/TODO-App/)
+- Live Site URL: [live site url](https://todo-jss.netlify.app/)
 
 ## Author
 
